@@ -1,19 +1,22 @@
-import { fireEvent, render, screen } from "@testing-library/react"
+import { fireEvent, render, screen, waitFor } from "@testing-library/react"
 import { Menu, MenuProps } from './menu'
 import { MenuItem } from "./menuItem"
+import { SubMenu } from "./subMenu"
+
 
 const testProps: MenuProps = {
-  defaultIndex: 0,
+  defaultIndex: '0',
   onSelect: jest.fn(),
-  className: 'test'
+  className: 'test',
 }
 const testVerProps: MenuProps = {
-  defaultIndex: 0,
-  mode: 'vertical'
+  defaultIndex: '0',
+  mode: 'vertical',
+  defaultOpenSubMenus: ['3']
 }
 const generateMenu = (props: MenuProps) => {
   return (
-    <Menu {...props}>
+    <Menu {...props} >
       <MenuItem>
         active
       </MenuItem>
@@ -23,6 +26,19 @@ const generateMenu = (props: MenuProps) => {
       <MenuItem>
         xyz
       </MenuItem>
+      <SubMenu title="dropdown" >
+        <MenuItem>
+          drop1
+        </MenuItem>
+        <MenuItem>
+          drop2
+        </MenuItem>
+      </SubMenu>
+      {/* <SubMenu title="opened">
+        <MenuItem>
+          opened1
+        </MenuItem>
+      </SubMenu> */}
     </Menu>
   )
 
@@ -38,6 +54,18 @@ describe('menu compent', () => {
     expect(activeElement).toBeInTheDocument();
     expect(disabledElement).toBeInTheDocument();
     expect(menuElement).toHaveClass('test', 'viking-menu');
+    // const listItems = screen.getAllByRole('listitem')
+    // expect(listItems.length).toEqual(3)
+    // expect(screen.getElementsByTagName('li').length).toEqual(3)
+    // 只统计 menuElement 下的直接子 <li>（顶级元素）
+    // const directChildren = menuElement.querySelectorAll(':scope > li');
+    // expect(directChildren.length).toEqual(5);
+    // const allListItems = within(menuElement).getAllByRole('listitem');
+    // 过滤出父元素是 menuElement 的 <li>（即直接子元素）
+    // const directListItems = allListItems.filter(item => item.parentElement === menuElement);
+    // expect(menuElement.children.length).toEqual(5);
+
+
     expect(activeElement).toHaveClass('is-active', 'menu-item');
     expect(disabledElement).toHaveClass('is-disabled', 'menu-item');
 
@@ -50,9 +78,9 @@ describe('menu compent', () => {
     fireEvent.click(thirdItem)
     expect(thirdItem).toHaveClass('is-active')
     expect(activeElement).not.toHaveClass('is-active')
-    expect(testProps.onSelect).toHaveBeenCalledWith(2)
+    expect(testProps.onSelect).toHaveBeenCalledWith('2')
     fireEvent.click(disabledElement)
-    expect(testProps.onSelect).not.toHaveBeenCalledWith(1)
+    expect(testProps.onSelect).not.toHaveBeenCalledWith('1')
     expect(disabledElement).not.toHaveClass('is-active')
 
   })
@@ -61,5 +89,21 @@ describe('menu compent', () => {
     const menuElement = screen.getByTestId('test-menu')
     expect(menuElement).toHaveClass('menu-vertical')
 
+  })
+  it('should show dropdown items when hover on subMenu', async () => {
+    render(generateMenu(testProps));
+    expect(screen.getByTestId('submenu-ul')).not.toHaveClass('menu-opened')
+    const dropdownElement = screen.getByText('dropdown')
+    fireEvent.mouseEnter(dropdownElement)
+    // 因为移入移出用了timer异步
+    await waitFor(() => {
+      expect(screen.getByTestId('submenu-ul')).toHaveClass('menu-opened')
+    })
+    fireEvent.click(screen.getByText('drop1'))
+    expect(testProps.onSelect).toHaveBeenCalledWith('3-0')
+    fireEvent.mouseLeave(dropdownElement)
+    await waitFor(() => {
+      expect(screen.getByTestId('submenu-ul')).not.toHaveClass('menu-opened')
+    })
   })
 })

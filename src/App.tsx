@@ -1,20 +1,32 @@
 import { Button, ButtonSize, ButtonType } from "./components/Button/button";
 import { Menu } from "./components/Menu/menu";
 import { MenuItem } from "./components/Menu/menuItem";
+import { SubMenu } from "./components/Menu/subMenu";
 
 
 function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <Menu onSelect={(index) => { alert(index) }} mode="vertical">
-          <MenuItem index={0}>
+        <Menu onSelect={(index: string) => { alert(index) }} mode="vertical" defaultOpenSubMenus={['2']}>
+          <MenuItem>
             cool link
           </MenuItem>
-          <MenuItem index={1}>
+          <MenuItem>
             cool link1
           </MenuItem>
-          <MenuItem index={2}>
+          <SubMenu title='dropdown'>
+            <MenuItem>
+              dropdown1
+            </MenuItem>
+            <MenuItem>
+              dropdown2
+            </MenuItem>
+            <MenuItem>
+              dropdown3
+            </MenuItem>
+          </SubMenu>
+          <MenuItem>
             cool link2
           </MenuItem>
         </Menu>

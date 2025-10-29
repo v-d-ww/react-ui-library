@@ -2,21 +2,24 @@ import classNames from "classnames"
 import React, { useState, createContext, ReactNode, ReactElement } from "react"
 import { MenuItemProps } from './menuItem'
 type MenuMode = 'horizontal' | 'vertical'
-type SelectCallback = (selectNumber: number) => void
+type SelectCallback = (selectNumber: string) => void
 export interface MenuProps {
   className?: string;
   mode?: MenuMode;
   style?: React.CSSProperties;
   children?: React.ReactNode;
-  defaultIndex?: number;
-  onSelect?: SelectCallback
+  defaultIndex?: string;
+  onSelect?: SelectCallback;
+  defaultOpenSubMenus?: string[]
 }
 interface IMenuContext {
-  index: number;
+  index: string;
   onSelect?: SelectCallback;
+  mode?: MenuMode;
+  defaultOpenSubMenus?: string[]
 
 }
-export const MenuContext = createContext<IMenuContext>({ index: 0 })
+export const MenuContext = createContext<IMenuContext>({ index: '0' })
 
 
 export function Menu(props: MenuProps) {
@@ -25,30 +28,34 @@ export function Menu(props: MenuProps) {
     mode = 'horizontal',
     style,
     children,
-    defaultIndex = 0,
-    onSelect
+    defaultIndex = '0',
+    onSelect,
+    defaultOpenSubMenus
   } = props
   const [currentActive, setActive] = useState(defaultIndex)
-  const handleClick = (index: number) => {
+  const handleClick = (index: string) => {
     setActive(index)
     if (onSelect) {
       onSelect(index)
     }
   }
   const passedContext: IMenuContext = {
-    index: currentActive | 0,
-    onSelect: handleClick
+    index: currentActive ? currentActive : '0',
+    onSelect: handleClick,
+    mode: mode,
+    defaultOpenSubMenus: defaultOpenSubMenus,
   }
   const classes = classNames('viking-menu', className, {
-    'menu-vertical': mode === 'vertical'
+    'menu-vertical': mode === 'vertical',
+    'menu-horizontal': mode !== 'vertical'
   })
   const renderChildren = (children: ReactNode) => React.Children.map(children, (child, index) => {
     const childElement = child as ReactElement<MenuItemProps>
     const displayName = (childElement.type as { displayName?: string }).displayName || '';
     // const {displayName} = childElement.type
-    if (displayName === 'MenuItem') {
+    if (displayName === 'MenuItem' || displayName === 'SubMenu') {
       return React.cloneElement(childElement, {
-        index: index
+        index: index.toString()
       });
     } else {
       console.error("Warning: Menu has a child which is not a MenuItem component");
