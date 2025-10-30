@@ -2,7 +2,8 @@ import classNames from "classnames"
 import React, { useContext, ReactElement, useState } from "react"
 import { MenuContext } from "./menu"
 import { MenuItemProps } from "./menuItem"
-
+import { Icon } from "../Icon/Icon"
+import { Transition } from "../Transition/transition"
 interface subMenuProps {
   index?: string,
   title: string
@@ -20,7 +21,8 @@ export function SubMenu(props: subMenuProps) {
   const [subOpen, setOpen] = useState(isOpened)
   const classes = classNames('menu-item submenu-item', className, {
     'is-active': context.index === index,
-    'is-vertical': context.mode === 'vertical'
+    'is-vertical': context.mode === 'vertical',
+    'is-opened': subOpen
   })
   const handleClick = (e: React.MouseEvent) => {
     e.preventDefault()
@@ -56,18 +58,27 @@ export function SubMenu(props: subMenuProps) {
         return React.cloneElement(childElement, { index: `${index}-${i}` })
       }
     })
-
-
   }
+
   return (
-    <li className={classes} {...hoverEvents}>
+    <li className={classes} {...hoverEvents} data-testid={`submenu-container-${index}`}>
       <div className="submenu-title" {...clickEvents}>
         {title}
+        <Icon icon='angle-left' className="arrow-icon"></Icon>
+
       </div>
       {/* li里面不能直接加一些children */}
-      <ul className={subMenuClasses} data-testid="submenu-ul">
-        {renderChildren(children)}
-      </ul>
+      <Transition
+        in={subOpen}
+        timeout={300}
+        animation='zoom-in-top'
+      // appear//第一次是true也会有这种效果
+      // unmountOnExit//不需要display:none/block组件就会自动消失
+      >
+        <ul className={subMenuClasses} data-testid="submenu-ul">{/* 绑定到 DOM 元素 */}
+          {renderChildren(children)}
+        </ul>
+      </Transition>
 
     </li>
 

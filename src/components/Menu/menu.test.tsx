@@ -1,8 +1,7 @@
-import { fireEvent, render, screen, waitFor } from "@testing-library/react"
+import { fireEvent, render, screen, waitFor, within } from "@testing-library/react"
 import { Menu, MenuProps } from './menu'
 import { MenuItem } from "./menuItem"
 import { SubMenu } from "./subMenu"
-
 
 const testProps: MenuProps = {
   defaultIndex: '0',
@@ -34,16 +33,16 @@ const generateMenu = (props: MenuProps) => {
           drop2
         </MenuItem>
       </SubMenu>
-      {/* <SubMenu title="opened">
+      <SubMenu title="opened">
         <MenuItem>
           opened1
         </MenuItem>
-      </SubMenu> */}
+      </SubMenu>
     </Menu>
   )
 
 }
-describe('menu compent', () => {
+describe('test Menu and MenuItem component in default(horizontal) mode', () => {
 
   it('should render correct Menu and MenuItem based on default props', () => {
     render(generateMenu(testProps));
@@ -84,26 +83,47 @@ describe('menu compent', () => {
     expect(disabledElement).not.toHaveClass('is-active')
 
   })
+
+  it('should show dropdown items when hover on subMenu', async () => {
+    render(generateMenu(testProps));
+
+    const dropdownElement = screen.getByTestId('submenu-container-3')
+    const submenuUl = within(dropdownElement).getByTestId('submenu-ul');
+    expect(submenuUl).not.toHaveClass('menu-opened')
+    fireEvent.mouseEnter(dropdownElement)
+    // 因为移入移出用了timer异步
+    await waitFor(() => {
+      expect(submenuUl).toHaveClass('menu-opened')
+    })
+    fireEvent.click(screen.getByText('drop1'))
+    expect(testProps.onSelect).toHaveBeenCalledWith('3-0')
+    fireEvent.mouseLeave(dropdownElement)
+    await waitFor(() => {
+      expect(submenuUl).not.toHaveClass('menu-opened')
+    })
+  })
+})
+describe('test Menu and MenuItem component in vertical mode', () => {
   it('should render vertical mode when mode is set to vertical', () => {
     render(generateMenu(testVerProps));
     const menuElement = screen.getByTestId('test-menu')
     expect(menuElement).toHaveClass('menu-vertical')
 
   })
-  it('should show dropdown items when hover on subMenu', async () => {
-    render(generateMenu(testProps));
-    expect(screen.getByTestId('submenu-ul')).not.toHaveClass('menu-opened')
-    const dropdownElement = screen.getByText('dropdown')
-    fireEvent.mouseEnter(dropdownElement)
-    // 因为移入移出用了timer异步
-    await waitFor(() => {
-      expect(screen.getByTestId('submenu-ul')).toHaveClass('menu-opened')
-    })
-    fireEvent.click(screen.getByText('drop1'))
-    expect(testProps.onSelect).toHaveBeenCalledWith('3-0')
-    fireEvent.mouseLeave(dropdownElement)
-    await waitFor(() => {
-      expect(screen.getByTestId('submenu-ul')).not.toHaveClass('menu-opened')
-    })
+  it('should show dropdown items when click on subMenu for vertical mode', () => {
+    render(generateMenu(testVerProps));
+    const dropdownTitle = screen.getByText('opened')
+    const dropdownElement = screen.getByTestId('submenu-container-4')
+    const submenuUl = within(dropdownElement).getByTestId('submenu-ul');
+    expect(submenuUl).not.toHaveClass('menu-opened')
+    fireEvent.click(dropdownTitle)
+    expect(submenuUl).toHaveClass('menu-opened')
   })
+  it('should show subMenu dropdown when defaultOpenSubMenus contains SubMenu index', () => {
+    render(generateMenu(testVerProps));
+    const dropdownElement = screen.getByTestId('submenu-container-3')
+    const submenuUl = within(dropdownElement).getByTestId('submenu-ul');
+    expect(submenuUl).toHaveClass('menu-opened')
+  })
+
 })

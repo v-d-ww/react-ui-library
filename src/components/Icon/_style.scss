@@ -1,0 +1,7 @@
+@each $key, $val in $theme-colors {
+  .icon-#{$key} {
+    color: $val;
+  }
+}
+
+//已经在varoables里面改过了 相当于一个map函数
