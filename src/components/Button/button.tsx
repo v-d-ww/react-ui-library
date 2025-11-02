@@ -1,17 +1,18 @@
 import React, { ButtonHTMLAttributes, AnchorHTMLAttributes } from 'react';
 import classNames from "classnames";
 
-export enum ButtonSize {
-  Large = 'lg',
-  Small = 'sm'
-}
-export enum ButtonType {
-  Primary = 'primary',
-  Default = 'default',
-  Danger = 'danger',
-  Link = 'link',
-}
-// type Buttonsize = 
+// export enum ButtonSize {
+//   Large = 'lg',
+//   Small = 'sm'
+// }
+export type ButtonSize = 'lg' | 'sm';
+// export enum ButtonType {
+//   Primary = 'primary',
+//   Default = 'default',
+//   Danger = 'danger',
+//   Link = 'link',
+// }
+export type ButtonType = 'primary' | 'default' | 'danger' | 'link';
 interface BaseButtonProps {
   className?: string;
   /**设置 Button 的禁用 */
@@ -21,6 +22,7 @@ interface BaseButtonProps {
   /**设置 Button 的类型 */
   btnType?: ButtonType;
   children: React.ReactNode;
+  /**设置 Button 的链接 */
   href?: string;
 }
 type NativeButtonProps = BaseButtonProps & ButtonHTMLAttributes<HTMLElement>
@@ -46,7 +48,7 @@ export function Button({
   className,
   disabled = false,
   size,
-  btnType = ButtonType.Default,
+  btnType = 'default',
   children,
   href,
   ...restProps//比如onClick
@@ -58,7 +60,7 @@ export function Button({
     [`btn-${size}`]: size,
     disabled: btnType === 'link' && disabled
   })
-  if (btnType === ButtonType.Link && href)
+  if (btnType === 'link' && href)
     return (
       <a
         className={classes}

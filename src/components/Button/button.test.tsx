@@ -8,9 +8,9 @@ const defaultProps = {
 const testProps: ButtonProps = {
   className: 'klass',
   /**设置 Button 的尺寸 */
-  size: ButtonSize.Large,
+  size: 'lg',
   /**设置 Button 的类型 */
-  btnType: ButtonType.Primary
+  btnType: 'primary'
 }
 const disabledProps: ButtonProps = {
   disabled: true,
@@ -37,7 +37,7 @@ describe('button compnent', () => {
 
   })
   it('renders as a link when btnType is "link" and href is provided', () => {
-    render(<Button btnType={ButtonType.Link} href="http://dummyurl">Link</Button>);
+    render(<Button btnType='link' href="http://dummyurl">Link</Button>);
     const link = screen.getByRole('link', { name: 'Link' });
 
     expect(link).toBeInTheDocument();

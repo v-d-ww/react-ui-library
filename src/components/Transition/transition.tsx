@@ -9,7 +9,9 @@ type AnimationName = 'zoom-in-top' | 'zoom-in-left' | 'zoom-in-bottom' | 'zoom-i
 type TransitionProps = CSSTransitionProps & {
   animation?: AnimationName;
   wrapper?: boolean;
-  children: ReactNode
+  children: ReactNode;
+  unmountOnExit?: boolean;
+  appear?: boolean;
 }
 export function Transition(props: TransitionProps) {
   const {
@@ -17,6 +19,8 @@ export function Transition(props: TransitionProps) {
     classNames,
     animation,
     wrapper,
+    unmountOnExit = true,
+    appear = true,
     ...restProps
 
   } = props
@@ -30,7 +34,3 @@ export function Transition(props: TransitionProps) {
   )
 
 }
-Transition.defaultProps = {
-  unmountOnExit: true,
-  appear: true,
-};
