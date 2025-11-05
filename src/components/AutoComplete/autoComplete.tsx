@@ -1,11 +1,11 @@
 import { Icon } from "../Icon/Icon";
 import { Input, InputProps } from "../Input/input";
 import React, { ChangeEvent, ReactElement, useEffect, useState, KeyboardEvent, useRef } from "react";
-import { useDebounce } from "../hooks/useDebounce";
+import { useDebounce } from "../../hooks/useDebounce";
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { fas } from '@fortawesome/free-solid-svg-icons'
 import classNames from "classnames";
-import { useClickOutside } from "../hooks/useClickOutside";
+import { useClickOutside } from "../../hooks/useClickOutside";
 library.add(fas)
 
 interface DataSourceObject {
