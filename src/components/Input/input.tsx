@@ -34,6 +34,7 @@ export function Input(props: InputProps) {
     <div
       className={cName}
       style={style}
+      data-testid='test-container'
     >
       {prepend && <div className="viking-input-group-prepend">{prepend}</div>}
       {icon && <div className="icon-wrapper"><Icon icon={icon} title={`title-${icon}`} /></div>}
