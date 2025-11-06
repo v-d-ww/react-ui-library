@@ -196,6 +196,7 @@ export function Upload(props: UploadProps) {
         onChange={handleChange}
         accept={accept}
         multiple={multiple}
+        data-testid="test-input"
       />
       <UploadList
         UploadList={fileList}
