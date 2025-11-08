@@ -2,6 +2,7 @@ import classNames from "classnames"
 import React, { useState, createContext, ReactNode, ReactElement } from "react"
 import { MenuItemProps } from './menuItem'
 type MenuMode = 'horizontal' | 'vertical'
+
 type SelectCallback = (selectNumber: string) => void
 export interface MenuProps {
   className?: string;
@@ -22,7 +23,7 @@ interface IMenuContext {
 export const MenuContext = createContext<IMenuContext>({ index: '0' })
 
 
-export function Menu(props: MenuProps) {
+export default function Menu(props: MenuProps) {
   const {
     className,
     mode = 'horizontal',

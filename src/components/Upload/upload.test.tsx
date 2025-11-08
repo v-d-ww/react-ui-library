@@ -1,5 +1,5 @@
 import { render, screen } from "@testing-library/react"
-import { Upload, UploadProps } from './upload'
+import Upload, { UploadProps } from './upload'
 import { fireEvent } from "@testing-library/react"
 import axios from "axios"
 jest.mock('axios');

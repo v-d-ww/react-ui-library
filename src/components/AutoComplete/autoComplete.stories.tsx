@@ -1,5 +1,5 @@
 import { Meta, StoryObj } from "@storybook/react";
-import { AutoComplete, DataSourceType } from "./autoComplete";
+import AutoComplete, { DataSourceType, AutoCompleteProps } from "./autoComplete";
 import React from "react";
 import { action } from '@storybook/addon-actions'
 
@@ -8,6 +8,7 @@ const meta: Meta<typeof AutoComplete> = {
   title: 'AutoComplete Component',
   component: AutoComplete,
   tags: ['autodocs'],
+
 
 }
 export default meta

@@ -1,5 +1,5 @@
 import { Meta, StoryObj } from '@storybook/react';
-import { Input } from './input';
+import Input from './input';
 import { action } from '@storybook/addon-actions';
 import React, { useState } from 'react';
 
@@ -9,22 +9,22 @@ const meta: Meta<typeof Input> = {
   title: 'Input Component', // 在 Storybook 侧边栏中的显示标题
   component: Input, // 关联的组件
   tags: ['autodocs'], // 自动生成文档
-  parameters: {
-    docs: {
-      inlineStories: true, // 这个特定故事使用非内联模式
-      description: {
-        component: [
-          'this is a very nice component',
-          '',
-          '## this is a header',
-          '',
-          '```js',
-          'const a = "hello"',
-          '```',
-        ].join('\n'),
-      },
-    },
-  },
+  // parameters: {
+  //   docs: {
+  //     inlineStories: true, // 这个特定故事使用非内联模式
+  //     description: {
+  //       component: [
+  //         'this is a very nice component',
+  //         '',
+  //         '## this is a header',
+  //         '',
+  //         '```js',
+  //         'const a = "hello"',
+  //         '```',
+  //       ].join('\n'),
+  //     },
+  //   },
+  // },
   argTypes: {
     prepend: {
       control: 'text', // ✅ 限制只能输入文本，不能输入对象

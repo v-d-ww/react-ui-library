@@ -44,7 +44,7 @@ export type ButtonProps = Partial<NativeButtonProps & AnchorButtonProps>
 // 等价于：{ name?: string; age?: number }
 
 
-export function Button({
+export default function Button({
   className,
   disabled = false,
   size,

@@ -1,6 +1,7 @@
 import classNames from "classnames";
 import { MenuContext } from "./menu";
 import { useContext } from "react";
+import React from 'react';
 
 export interface MenuItemProps {
   index?: string;
@@ -9,7 +10,7 @@ export interface MenuItemProps {
   style?: React.CSSProperties;
   children?: React.ReactNode
 }
-export function MenuItem(props: MenuItemProps) {
+export default function MenuItem(props: MenuItemProps) {
   const { index, disabled, className, style, children } = props
   const context = useContext(MenuContext)
   const classes = classNames('menu-item', className, {

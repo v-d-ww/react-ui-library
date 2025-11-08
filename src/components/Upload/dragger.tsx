@@ -1,11 +1,11 @@
 import classNames from "classnames"
 import React, { ReactNode, useState } from "react"
 
-export interface draggerProps {
+export interface DraggerProps {
   onFile: (file: FileList) => void,
   children?: ReactNode
 }
-export function Dragger(props: draggerProps) {
+export default function Dragger(props: DraggerProps) {
   const { onFile, children } = props
   const [dragOver, setDragOver] = useState(false)
   const handleDrag = (e: React.DragEvent<HTMLElement>, over: boolean) => {

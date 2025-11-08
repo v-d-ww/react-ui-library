@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+    //文件放在哪 build文件夹下
+    "outDir": "build",
+    // 输出类型
+    "module": "esnext",
+    //DS标准
+    "target": "es5",
+    //外部库的提示 ts的提示和类型检查 生成.d.tx文件
+    "declaration": true,
+    "jsx": "react",
+    "moduleResolution": "node",
+    "allowSyntheticDefaultImports": true
+  },
+  "include": [
+    "src"
+  ],
+  "exclude": [
+    "src/**/*.test.tsx",
+    "src/**/*.stories.tsx"
+  ]
+}

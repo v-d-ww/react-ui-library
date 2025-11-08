@@ -1,6 +1,6 @@
 import { Meta, StoryObj } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
-import { Button } from './button';
+import Button from './button';
 import React from 'react';
 
 // 元数据配置 - 定义组件的基本信息
@@ -16,22 +16,22 @@ const meta: Meta<typeof Button> = {
     }
     // action('button-clicked') // 统一处理点击事件
   },
-  parameters: {
-    docs: {
-      inlineStories: true, // 这个特定故事使用非内联模式
-      description: {
-        component: [
-          'this is a very nice component',
-          '',
-          '## this is a header',
-          '',
-          '```js',
-          'const a = "hello"',
-          '```',
-        ].join('\n'),
-      },
-    },
-  },
+  // parameters: {
+  //   docs: {
+  //     inlineStories: true, // 这个特定故事使用非内联模式
+  //     description: {
+  //       component: [
+  //         'this is a very nice component',
+  //         '',
+  //         '## this is a header',
+  //         '',
+  //         '```js',
+  //         'const a = "hello"',
+  //         '```',
+  //       ].join('\n'),
+  //     },
+  //   },
+  // },
 
 };
 
@@ -41,7 +41,7 @@ export default meta;
 type Story = StoryObj<typeof Button>;
 
 // 不同类型
-export const PrimaryButton: Story = {
+export const DefaultButton: Story = {
   args: {
     // 按钮的文本内容
     children: 'Default button'

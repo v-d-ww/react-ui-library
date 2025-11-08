@@ -1,7 +1,7 @@
 import { IconProp } from '@fortawesome/fontawesome-svg-core'
 import classNames from 'classnames'
 import type { InputHTMLAttributes, ReactElement } from 'react';
-import { Icon } from '../Icon/Icon';
+import Icon from '../Icon/Icon';
 import React from 'react';
 
 type InputSize = 'lg' | 'sm'
@@ -13,7 +13,7 @@ export interface InputProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 
   append?: string | ReactElement,
   // onChange?: (e: ChangeEvent<HTMLInputElement>) => void
 }
-export function Input(props: InputProps) {
+export default function Input(props: InputProps) {
   const {
     disabled = false,
     size,

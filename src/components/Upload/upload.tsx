@@ -1,8 +1,8 @@
 import React, { ChangeEvent, ReactNode, useEffect, useRef, useState } from "react"
-import { Button } from "../Button/button"
+import Button from "../Button/button"
 import axios from "axios"
-import { UploadList } from "./UploadList"
-import { Dragger } from "./dragger"
+import UploadList from "./UploadList"
+import Dragger from "./dragger"
 
 export interface UploadProps {
   action: string,
@@ -34,7 +34,7 @@ export interface UploadFile {
   error?: any,
 
 }
-export function Upload(props: UploadProps) {
+export default function Upload(props: UploadProps) {
   const {
     action,
     defaultUploadList,

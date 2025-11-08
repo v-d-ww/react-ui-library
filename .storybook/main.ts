@@ -14,6 +14,21 @@ const config: StorybookConfig = {
   },
   docs: { autodocs: "tag" },
   staticDirs: ["../public"],
+  typescript: {
+    reactDocgen: 'react-docgen-typescript',
+    reactDocgenTypescriptOptions: {
+      shouldExtractLiteralValuesFromEnum: true,
+      propFilter: (prop) => {
+        // 只处理组件文件，排除 node_modules
+        if (prop.parent) {
+          return !prop.parent.fileName.includes('node_modules');
+        }
+        return true;
+      },
+      // 尝试提取接口中的注释
+      shouldExtractValuesFromUnion: true,
+    },
+  },
   webpackFinal: async (config) => {
     // SCSS 支持
     (config.module!.rules as any[]).push({

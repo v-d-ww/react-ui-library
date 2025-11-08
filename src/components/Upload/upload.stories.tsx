@@ -1,8 +1,8 @@
-import { Upload, UploadFile } from "./upload";
+import Upload, { UploadFile } from "./upload";
 import { Meta, StoryObj } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
 import React from 'react';
-import { Icon } from "../Icon/Icon";
+import Icon from "../Icon/Icon";
 
 const meta: Meta<typeof Upload> = {
   title: 'Upload Component', // 在 Storybook 侧边栏中的显示标题

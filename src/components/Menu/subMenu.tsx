@@ -2,9 +2,9 @@ import classNames from "classnames"
 import React, { useContext, ReactElement, useState } from "react"
 import { MenuContext } from "./menu"
 import { MenuItemProps } from "./menuItem"
-import { Icon } from "../Icon/Icon"
-import { Transition } from "../Transition/transition"
-interface subMenuProps {
+import Icon from "../Icon/Icon"
+import Transition from "../Transition/transition"
+export interface SubMenuProps {
   index?: string,
   title: string
   className?: string,
@@ -12,11 +12,11 @@ interface subMenuProps {
 }
 
 
-export function SubMenu(props: subMenuProps) {
+export default function SubMenu(props: SubMenuProps) {
 
   const { index, className, title, children } = props
   const context = useContext(MenuContext)
-  const openedSubMenus = context.defaultOpenSubMenus as Array<string>
+  const openedSubMenus = (context.defaultOpenSubMenus as Array<string>) || []
   const isOpened = (index && context.mode === 'vertical') ? openedSubMenus.includes(index) : false
   const [subOpen, setOpen] = useState(isOpened)
   const classes = classNames('menu-item submenu-item', className, {
@@ -27,7 +27,6 @@ export function SubMenu(props: subMenuProps) {
   const handleClick = (e: React.MouseEvent) => {
     e.preventDefault()
     setOpen(!subOpen)
-    alert(12345)
   }
   // 不是移入即打开，而是停留 300ms 再打开
   let timer: any

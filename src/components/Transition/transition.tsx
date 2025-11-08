@@ -1,6 +1,7 @@
-import { ReactNode } from 'react';
+import React, { ReactNode } from 'react';
 import { CSSTransition } from 'react-transition-group'
 import { CSSTransitionProps } from 'react-transition-group/CSSTransition'
+
 
 // interface TransitionProps extends CSSTransitionProps{
 //   animation?:string
@@ -13,7 +14,7 @@ type TransitionProps = CSSTransitionProps & {
   unmountOnExit?: boolean;
   appear?: boolean;
 }
-export function Transition(props: TransitionProps) {
+export default function Transition(props: TransitionProps) {
   const {
     children,
     classNames,
@@ -27,6 +28,9 @@ export function Transition(props: TransitionProps) {
   return (
     <CSSTransition
       classNames={classNames ? classNames : animation}
+      unmountOnExit={unmountOnExit}
+      appear={appear}
+      wrapper={wrapper}
       {...restProps}
     >
       <div>{children}</div>

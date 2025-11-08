@@ -13,7 +13,7 @@ export interface ProgressProps {
   /** 主题 */
   theme?: ThemeProps;
 }
-export function Progress(props: ProgressProps) {
+export default function Progress(props: ProgressProps) {
   const {
     percent,
     strokeHeight = 15,

@@ -1,16 +1,16 @@
 import React from 'react'
-import { Icon } from '../Icon/Icon'
+import Icon from '../Icon/Icon'
 import { UploadFile } from './upload'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { fas } from '@fortawesome/free-solid-svg-icons'
-import { Progress } from '../Progress/progress'
+import Progress from '../Progress/progress'
 library.add(fas)
 
-interface uploadListProps {
+export interface uploadListProps {
   UploadList: UploadFile[],
   onRemove: (_file: UploadFile) => void
 }
-export function UploadList(props: uploadListProps) {
+export default function UploadList(props: uploadListProps) {
   const {
     UploadList,
     onRemove
