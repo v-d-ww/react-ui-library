@@ -6,12 +6,12 @@ import { FontAwesomeIcon, FontAwesomeIconProps } from '@fortawesome/react-fontaw
 library.add(fas)
 
 export type ThemeProps = 'primary' | 'secondary' | 'success' | 'info' | 'warning' | 'danger' | 'light' | 'dark'
-export interface iconProps extends FontAwesomeIconProps {
+export interface IconProps extends FontAwesomeIconProps {
   theme?: ThemeProps
 
 }
 
-export default function Icon(props: iconProps) {
+export default function Icon(props: IconProps) {
   const { className, theme, ...resetProps } = props
   const classes = classNames('viking-icon', className, {
     [`icon-${theme}`]: theme

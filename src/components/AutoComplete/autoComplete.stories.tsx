@@ -8,15 +8,69 @@ const meta: Meta<typeof AutoComplete> = {
   title: 'AutoComplete Component',
   component: AutoComplete,
   tags: ['autodocs'],
+  argTypes: {
+    placeholder: {
+      control: 'text',
+      description: '输入框占位符',
+      table: {
+        type: { summary: 'string' },
+      },
+    },
+    size: {
+      control: 'select',
+      options: ['lg', 'sm'],
+      description: '输入框尺寸',
+      table: {
+        type: { summary: 'lg | sm' },
+      },
+    },
+    disabled: {
+      control: 'boolean',
+      description: '是否禁用',
+      table: {
+        type: { summary: 'boolean' },
+        defaultValue: { summary: 'false' },
+      },
+    },
+    fetchSuggestions: {
+      control: false,
+      description: '返回推荐结果的函数，支持同步和异步',
+      table: {
+        type: { summary: '(str: string) => DataSourceType[] | Promise<DataSourceType[]>' },
+      },
+    },
+    onSelect: {
+      action: 'onSelect',
+      description: '选择某一项时触发',
+      table: {
+        type: { summary: '(item: DataSourceType) => void' },
+      },
+    },
+    renderOption: {
+      control: false,
+      description: '自定义渲染选项的样式',
+      table: {
+        type: { summary: '(item: DataSourceType) => ReactElement' },
+      },
+    }
+  },
+  parameters: {
+    docs: {
+      inlineStories: true,
+      description: {
+        story: '展示不同尺寸的 AutoComplete 组件。',
+      },
+    },
+  },
 
 
 }
 export default meta
 
-type Story = StoryObj<typeof AutoComplete>;
+type Story = StoryObj<AutoCompleteProps>;
 
 export const Default: Story = {
-  render: () => {
+  render: (args) => {
     // const lakers = ['bradley', 'pope', 'caruso', 'cook', 'cousins', 'james', 'AD', 'green', 'howard', 'kuzma', 'McGee', 'rando']
     interface lakerProps {
       value: string;
@@ -71,8 +125,10 @@ export const Default: Story = {
     // }
     return (
       <AutoComplete
+        {...args}
         fetchSuggestions={handleSuggestions}
         onSelect={onSelect}
+
       // renderOption={renderOption}
       />
     )

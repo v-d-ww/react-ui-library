@@ -1,7 +1,7 @@
 import { Meta, StoryObj } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
 import React from 'react';
-import Menu from './menu';
+import Menu, { MenuProps } from './menu';
 import MenuItem from './menuItem';
 import SubMenu from './subMenu';
 
@@ -10,15 +10,74 @@ const meta: Meta<typeof Menu> = {
   title: 'Menu Component', // 在 Storybook 侧边栏中的显示标题
   component: Menu, // 关联的组件
   tags: ['autodocs'], // 自动生成文档
+  args: {
+    mode: 'horizontal',
+    defaultIndex: '0',
+    onSelect: action('onSelect'),
+  },
+  argTypes: {
+    mode: {
+      control: 'select',
+      options: ['horizontal', 'vertical'],
+      description: '菜单模式：水平或垂直',
+      table: {
+        type: { summary: 'horizontal | vertical' },
+        defaultValue: { summary: 'horizontal' },
+      },
+    },
+    defaultIndex: {
+      control: 'text',
+      description: '默认激活的菜单项索引',
+      table: {
+        type: { summary: 'string' },
+        defaultValue: { summary: '0' },
+      },
+    },
+    defaultOpenSubMenus: {
+      control: 'object',
+      description: '默认展开的子菜单索引数组',
+      table: {
+        type: { summary: 'string[]' },
+      },
+    },
+    onSelect: {
+      action: 'onSelect',
+      description: '选择菜单项时触发的回调函数',
+      table: {
+        type: { summary: '(index: string) => void' },
+      },
+    },
+    className: {
+      control: 'text',
+      description: '可以扩展的 className',
+      table: {
+        type: { summary: 'string' },
+      },
+    },
+    style: {
+      control: 'object',
+      description: '自定义样式',
+      table: {
+        type: { summary: 'React.CSSProperties' },
+      },
+    },
+  },
+  parameters: {
+    docs: {
+      description: {
+        component: 'Menu 菜单组件，支持水平和垂直两种模式，可以包含菜单项和子菜单，支持禁用状态和默认展开。',
+      },
+    },
+  },
 };
+
 
 export default meta;
 // 定义故事类型，基于 Button 组件的 props 类型
-type Story = StoryObj<typeof Menu>;
+type Story = StoryObj<MenuProps>;
 
-// 不同类型
+
 export const DefaultMenu: Story = {
-
   render: () => {
     return (
       <Menu onSelect={(index) => { action(`clicked ${index} item`) }} >

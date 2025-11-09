@@ -1,5 +1,5 @@
 import { render } from "@testing-library/react"
-import { AutoComplete, AutoCompleteProps, DataSourceType } from "./autoComplete"
+import AutoComplete, { AutoCompleteProps, DataSourceType } from "./autoComplete"
 import { fireEvent, screen } from "@testing-library/react"
 
 const testArray = [

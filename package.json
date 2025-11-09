@@ -1,7 +1,27 @@
 {
-  "name": "react-ui-library",
-  "version": "0.1.0",
-  "private": true,
+  "name": "v-d-ww-react-ui-library",
+  "version": "0.1.1",
+  "description": "A React UI library",
+  "author": "v-d-ww",
+  "license": "MIT",
+  "keywords": [
+    "react",
+    "ui",
+    "library",
+    "components"
+  ],
+  "homepage": "https://github.com/v-d-ww/react-ui-library",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/v-d-ww/react-ui-library.git"
+  },
+  "files": [
+    "dist"
+  ],
+  "private": false,
+  "main": "dist/index.js",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^7.1.0",
     "@fortawesome/free-solid-svg-icons": "^7.1.0",
@@ -16,12 +36,15 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "clean": "rimraf ./dist",
+    "build": "npm run clean && npm run build-ts && npm run build-css",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
-    "build-ts": "tsc -p tsconfig.build.json"
+    "build-ts": "tsc -p tsconfig.build.json",
+    "build-css": "npx sass ./src/styles/index.scss ./dist/index.css",
+    "prepublishOnly": "npm run build"
   },
   "eslintConfig": {
     "extends": [
@@ -64,6 +87,7 @@
     "eslint-plugin-storybook": "^0.9.0",
     "prop-types": "^15.8.1",
     "react-refresh": "^0.11.0",
+    "rimraf": "^6.1.0",
     "sass": "^1.93.2",
     "storybook": "^7.6.20",
     "typescript": "^4.9.5"
