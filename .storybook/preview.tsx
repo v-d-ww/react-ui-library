@@ -16,6 +16,11 @@ const preview: Preview = {
     storybook: {
       hotReload: false,
     },
+    options: {
+      storySort: {
+        order: ['Welcome', '*'], // Welcome 在最前面，其他按默认顺序
+      },
+    },
   },
   // decorators: [
   //   (Story) => (

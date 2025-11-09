@@ -1,5 +1,4 @@
 import React, { ChangeEvent, ReactNode, useEffect, useRef, useState } from "react"
-import Button from "../Button/button"
 import axios from "axios"
 import UploadList from "./UploadList"
 import Dragger from "./dragger"
