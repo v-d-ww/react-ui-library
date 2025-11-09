@@ -1,14 +1,21 @@
 language: node_js
 node_js:
-  - "stable"
+  - "18"
+  - "20"
 cache:
   directories:
     - node_modules
 env:
   - CI=true
 install:
-  - npm install
+  - npm ci
 script:
   - npm run test:nowatch
   - npm run lint
   - npm run build
+branches:
+  only:
+    - main
+    - master
+notifications:
+  email: false
