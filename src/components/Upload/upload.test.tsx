@@ -36,7 +36,7 @@ const testProps: UploadProps = {
 // 模拟 Icon 组件（简化实现）- 注意是命名导出
 jest.mock('../Icon/Icon', () => ({
   __esModule: true,
-  Icon: ({ icon, onClick }: { icon: string; onClick?: () => void }) => (
+  default: ({ icon, onClick }: { icon: string; onClick?: () => void }) => (
     <span data-testid={`icon-${icon}`} onClick={onClick}>
       {icon}
     </span>

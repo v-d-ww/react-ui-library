@@ -88,13 +88,13 @@ describe('test Menu and MenuItem component in default(horizontal) mode', () => {
     render(generateMenu(testProps));
 
     const dropdownElement = screen.getByTestId('submenu-container-3')
-    const submenuUl = within(dropdownElement).getByTestId('submenu-ul');
-    expect(submenuUl).not.toHaveClass('menu-opened')
+    let submenuUl = within(dropdownElement).queryByTestId('submenu-ul');
+    expect(submenuUl).not.toBeInTheDocument();
+    // expect(submenuUl).not.toHaveClass('menu-opened')
     fireEvent.mouseEnter(dropdownElement)
     // 因为移入移出用了timer异步
-    await waitFor(() => {
-      expect(submenuUl).toHaveClass('menu-opened')
-    })
+    submenuUl = await within(dropdownElement).findByTestId('submenu-ul');
+    expect(submenuUl).toHaveClass('menu-opened')
     fireEvent.click(screen.getByText('drop1'))
     expect(testProps.onSelect).toHaveBeenCalledWith('3-0')
     fireEvent.mouseLeave(dropdownElement)
@@ -110,13 +110,15 @@ describe('test Menu and MenuItem component in vertical mode', () => {
     expect(menuElement).toHaveClass('menu-vertical')
 
   })
-  it('should show dropdown items when click on subMenu for vertical mode', () => {
+  it('should show dropdown items when click on subMenu for vertical mode', async () => {
     render(generateMenu(testVerProps));
     const dropdownTitle = screen.getByText('opened')
     const dropdownElement = screen.getByTestId('submenu-container-4')
-    const submenuUl = within(dropdownElement).getByTestId('submenu-ul');
-    expect(submenuUl).not.toHaveClass('menu-opened')
+    let submenuUl = within(dropdownElement).queryByTestId('submenu-ul');
+    expect(submenuUl).not.toBeInTheDocument();
+    // expect(submenuUl).not.toHaveClass('menu-opened')
     fireEvent.click(dropdownTitle)
+    submenuUl = await within(dropdownElement).findByTestId('submenu-ul');
     expect(submenuUl).toHaveClass('menu-opened')
   })
   it('should show subMenu dropdown when defaultOpenSubMenus contains SubMenu index', () => {

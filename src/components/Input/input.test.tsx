@@ -1,5 +1,5 @@
 import { render, fireEvent, screen } from '@testing-library/react'
-import { Input, InputProps } from './input'
+import Input, { InputProps } from './input'
 
 const defaultProps: InputProps = {
   onChange: jest.fn(),

@@ -41,7 +41,7 @@ export default function Alert(props: AlertProps) {
       animation="zoom-in-left"
       wrapper
     >
-      <div className={classes} data-testId="test-alert">
+      <div className={classes} data-testid="test-alert">
         {title ? <h4 className="alert-title">{title}</h4> : null}
         <p className="alert-message">{children}</p>
         {closable ? <i onClick={handleClick}>{customCloseP}</i> : null}
