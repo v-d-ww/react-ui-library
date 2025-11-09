@@ -15,4 +15,3 @@ script:
   - npm run build
 notifications:
   email: false
-# 推送
